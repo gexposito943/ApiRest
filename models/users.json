@@ -1,0 +1,16 @@
+[
+  {
+    "id": "863e172f-d65a-4d14-b57c-a7d6f0aadc4f",
+    "nomUsuari": "pepe",
+    "contrasenya": "$2a$10$UumJH4lWMppr1aGJwSpFQ.E9wTtMe25DvJUVqFbAxek3RYn1r/LWm",
+    "creatEl": "2024-11-05T18:56:25.023Z",
+    "actualitzatEl": "2024-11-05T18:56:25.023Z"
+  },
+  {
+    "id": "0246a6f2-e399-42a2-8a84-e0bffe3c52dd",
+    "nomUsuari": "guillem",
+    "contrasenya": "$2a$10$sP6P9VkICTbJqkKWAJ0xHe.9Tu3wDPfgoCWskxaRDmqPLxniXkHeG",
+    "creatEl": "2024-11-06T18:42:12.169Z",
+    "actualitzatEl": "2024-11-06T18:42:12.169Z"
+  }
+]

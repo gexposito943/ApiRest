@@ -86,40 +86,41 @@ const actualitzarLlibre = (req, res) => {
 // Eliminar un llibre
 const eliminarLlibre = (req, res) => {
     try {
-        // llegir el contingut actual de l'arxiu
+        console.log('Intentando eliminar libro con ID:', req.params.id); // Log para debug
+
+        // Leer el archivo actual
         const contenido = fs.readFileSync(rutaArxiu, 'utf8');
         let data = JSON.parse(contenido);
 
-        
-        const { id } = req.params;
+        console.log('Número de libros antes:', data.books.length); // Log para debug
 
-       
-        const indexLlibre = data.books.findIndex(book => book.id === id);
+        // Filtrar los libros, excluyendo el que queremos eliminar
+        const booksActualizados = data.books.filter(book => book.id !== req.params.id);
 
-        // Si no existeix el llibre
-        if (indexLlibre === -1) {
+        // Verificar si se encontró y eliminó el libro
+        if (booksActualizados.length === data.books.length) {
             return res.status(404).json({
                 success: false,
                 message: 'Llibre no trobat'
             });
         }
 
-        data.books.splice(indexLlibre, 1);
-        
-       
+        // Actualizar el array de libros y la fecha
+        data.books = booksActualizados;
         data.updatedAt = new Date().toISOString();
 
-        
+        // Guardar los cambios
         fs.writeFileSync(rutaArxiu, JSON.stringify(data, null, 2));
 
-        
+        console.log('Número de libros después:', booksActualizados.length); // Log para debug
+
         res.status(200).json({
             success: true,
             message: 'Llibre eliminat correctament'
         });
 
     } catch (error) {
-        console.error('Error al eliminar el libro:', error);
+        console.error('Error completo:', error);
         res.status(500).json({
             success: false,
             message: 'Error intern del servidor',

@@ -1,6 +1,6 @@
 import express from 'express';
 import { check } from 'express-validator';
-import { createSale } from '../controllers/salesController.js';
+import { createSale, deleteSale } from '../controllers/salesController.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
@@ -12,5 +12,7 @@ router.post('/', auth, [
     check('books.*.bookId', 'El ID del llibre és obligatori').not().isEmpty(),
     check('books.*.quantity', 'La quantitat ha de ser un número').isInt({ min: 1 })
 ], createSale);
+
+router.delete('/:id', auth, deleteSale);
 
 export default router;

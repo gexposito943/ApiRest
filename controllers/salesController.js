@@ -38,4 +38,47 @@ const crearVenda = (req, res) => {
     }
 };
 
-export { crearVenda as createSale };
+const eliminarVenda = (req, res) => {
+    try {
+        
+        const contenido = fs.readFileSync(rutaArxiu, 'utf8');
+        let data = JSON.parse(contenido);
+
+        
+        const { id } = req.params;
+        const ventasActualizadas = data.sales.filter(sale => sale.id !== id);
+
+        // Verificar si se encontró la venta
+        if (ventasActualizadas.length === data.sales.length) {
+            return res.status(404).json({
+                success: false,
+                message: 'Venda no trobada'
+            });
+        }
+
+        // Actualizar datos
+        data.sales = ventasActualizadas;
+        data.updatedAt = new Date().toISOString();
+
+        // Guardar cambios
+        fs.writeFileSync(rutaArxiu, JSON.stringify(data, null, 2));
+
+        res.status(200).json({
+            success: true,
+            message: 'Venda eliminada correctament'
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error intern del servidor',
+            error: error.message
+        });
+    }
+};
+
+export { 
+    crearVenda as createSale,
+    eliminarVenda as deleteSale 
+};
